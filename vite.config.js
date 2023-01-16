@@ -10,11 +10,11 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       srcDir: 'src',
-      filename: 'claims-sw.js',
+      filename: 'sw.js',
       strategies: 'injectManifest',
       manifest: {
-        name: 'Claims',
-        short_name: 'Claims',
+        name: 'Steam TOTP',
+        short_name: 'Steam TOTP',
         theme_color: '#ffffff',
         icons: [
           {
