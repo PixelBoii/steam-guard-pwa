@@ -13,14 +13,19 @@ function getAuthCode() {
   }
 }
 
-const code = ref('');
-
-setInterval(() => {
+function refreshValues() {
   code.value = getAuthCode();
-}, 1000);
+
+  timeLeft.value = 30 - (Math.floor(Date.now() / 1000) % 30);
+}
+
+const code = ref('');
+const timeLeft = ref(30);
+
+setInterval(refreshValues, 1000);
 
 // On page load
-code.value = getAuthCode();
+refreshValues();
 
 function submit() {
   localStorage.setItem('sharedSecret', sharedSecret.value);
@@ -47,6 +52,8 @@ function reset() {
           @click="copyCode">
           <p class="text-white font-bold text-2xl"> {{ code }} </p>
         </div>
+
+        <div class="h-1 w-full bg-blue-500 transition duration-1000 ease-linear" :style="{ transform: `scaleX(${timeLeft / 30})` }"></div>
       </div>
 
       <div class="fixed bottom-6 inset-x-0 mx-auto flex items-center justify-center cursor-pointer">
